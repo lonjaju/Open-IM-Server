@@ -37,7 +37,7 @@ func Uint32ToString(i uint32) string {
 	return strconv.FormatInt(int64(i), 10)
 }
 
-//judge a string whether in the  string list
+// judge a string whether in the  string list
 func IsContain(target string, List []string) bool {
 	for _, element := range List {
 
@@ -80,7 +80,7 @@ func StructToJsonBytes(param interface{}) []byte {
 	return dataType
 }
 
-//The incoming parameter must be a pointer
+// The incoming parameter must be a pointer
 func JsonStringToStruct(s string, args interface{}) error {
 	err := json.Unmarshal([]byte(s), args)
 	return err
@@ -120,4 +120,14 @@ func RemoveDuplicateElement(idList []string) []string {
 		}
 	}
 	return result
+}
+
+// GetRandomStr 生成指定长度的随机字符串
+func GetRandomStr(length int) string {
+	letterRunes := []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
+	b := make([]rune, length)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+	}
+	return string(b)
 }

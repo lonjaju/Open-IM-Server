@@ -27,34 +27,27 @@ func main() {
 	if config.Config.Prometheus.Enable {
 		r.GET("/metrics", promePkg.PrometheusHandler())
 	}
-	authRouterGroup := r.Group("/demo")
+	authRouterGroup := r.Group("/auth")
 	{
+		// 发送验证码
 		authRouterGroup.POST("/code", register.SendVerificationCode)
 		authRouterGroup.POST("/verify", register.Verify)
+		// 设置密码
 		authRouterGroup.POST("/password", register.SetPassword)
 		authRouterGroup.POST("/login", register.Login)
 		authRouterGroup.POST("/reset_password", register.ResetPassword)
 		authRouterGroup.POST("/check_login", register.CheckLoginLimit)
 	}
-	demoRouterGroup := r.Group("/auth")
-	{
-		demoRouterGroup.POST("/code", register.SendVerificationCode)
-		demoRouterGroup.POST("/verify", register.Verify)
-		demoRouterGroup.POST("/password", register.SetPassword)
-		demoRouterGroup.POST("/login", register.Login)
-		demoRouterGroup.POST("/reset_password", register.ResetPassword)
-		demoRouterGroup.POST("/check_login", register.CheckLoginLimit)
-	}
 
-	accountRouterGroup := r.Group("/account")
-	{
-		accountRouterGroup.POST("/code", register.SendVerificationCode)
-		accountRouterGroup.POST("/verify", register.Verify)
-		accountRouterGroup.POST("/password", register.SetPassword)
-		accountRouterGroup.POST("/login", register.Login)
-		accountRouterGroup.POST("/reset_password", register.ResetPassword)
-		accountRouterGroup.POST("/check_login", register.CheckLoginLimit)
-	}
+	//demoRouterGroup := r.Group("/auth")
+	//{
+	//	demoRouterGroup.POST("/code", register.SendVerificationCode)
+	//	demoRouterGroup.POST("/verify", register.Verify)
+	//	demoRouterGroup.POST("/password", register.SetPassword)
+	//	demoRouterGroup.POST("/login", register.Login)
+	//	demoRouterGroup.POST("/reset_password", register.ResetPassword)
+	//	demoRouterGroup.POST("/check_login", register.CheckLoginLimit)
+	//}
 
 	//deprecated
 	cmsRouterGroup := r.Group("/cms_admin")

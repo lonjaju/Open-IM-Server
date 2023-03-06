@@ -14,11 +14,12 @@ type paramsCertification struct {
 	Email            string `json:"email"`
 	PhoneNumber      string `json:"phoneNumber"`
 	VerificationCode string `json:"verificationCode"`
-	OperationID      string `json:"operationID" binding:"required"`
-	UsedFor          int    `json:"usedFor"`
-	AreaCode         string `json:"areaCode"`
+	OperationID      string `json:"operationID" binding:"required"` // 随机ID
+	UsedFor          int    `json:"usedFor"`                        // 注册、重置密码
+	AreaCode         string `json:"areaCode"`                       // 地区
 }
 
+// Verify 对前端提交验证码校验
 func Verify(c *gin.Context) {
 	params := paramsCertification{}
 	operationID := params.OperationID

@@ -37,6 +37,7 @@ type ParamsSetPassword struct {
 	Birth            int32  `json:"birth"`
 }
 
+// SetPassword 设置密码
 func SetPassword(c *gin.Context) {
 	params := ParamsSetPassword{}
 	if err := c.BindJSON(&params); err != nil {

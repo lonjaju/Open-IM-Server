@@ -27,16 +27,23 @@ func main() {
 	if config.Config.Prometheus.Enable {
 		r.GET("/metrics", promePkg.PrometheusHandler())
 	}
-	authRouterGroup := r.Group("/auth")
+	authRouterGroup := r.Group("/demo")
 	{
 		// 发送验证码
 		authRouterGroup.POST("/code", register.SendVerificationCode)
+		// 校验验证码
 		authRouterGroup.POST("/verify", register.Verify)
 		// 设置密码
 		authRouterGroup.POST("/password", register.SetPassword)
+		// 登录
 		authRouterGroup.POST("/login", register.Login)
+		// 重置密码
 		authRouterGroup.POST("/reset_password", register.ResetPassword)
+		// 检测user是否允许登录
 		authRouterGroup.POST("/check_login", register.CheckLoginLimit)
+
+		// 获取用户手机号
+		authRouterGroup.POST("/one_click/get_phone", register.OneClickGetPhone)
 	}
 
 	//demoRouterGroup := r.Group("/auth")

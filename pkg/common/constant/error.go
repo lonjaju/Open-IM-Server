@@ -77,6 +77,8 @@ const (
 	HttpError            = 10005
 	IoError              = 10006
 	IntentionalError     = 10007
+
+	OneClickGetPhoneError = 10008
 )
 
 func (e ErrInfo) Error() string {

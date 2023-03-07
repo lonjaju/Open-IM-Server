@@ -524,6 +524,12 @@ type config struct {
 			VerificationCodeTemplateCode string `yaml:"verificationCodeTemplateCode"`
 			Enable                       bool   `yaml:"enable"`
 		} `yaml:"netEaseSMS"`
+		NetEaseOneClick struct {
+			SecretID   string `yaml:"secretID"`
+			SecretKey  string `yaml:"secretKey"`
+			BusinessID string `yaml:"businessID"`
+			Enable     bool   `yaml:"enable"`
+		} `yaml:"netEaseOneClick"`
 		SuperCode    string `yaml:"superCode"`
 		CodeTTL      int    `yaml:"codeTTL"`
 		UseSuperCode bool   `yaml:"useSuperCode"`

@@ -41,7 +41,7 @@ func OneClickGetPhone(c *gin.Context) {
 	response, err := oneClick.getPhone(params.Token, params.AccessToken)
 	if err != nil {
 		log.NewError(params.OperationID, "getPhone error", params.Token, params.AccessToken, "err", err.Error(), response)
-		c.JSON(http.StatusOK, gin.H{"errCode": constant.OneClickGetPhoneError, "errMsg": "Enter the superCode directly in the verification code box, SuperCode can be configured in config.xml"})
+		c.JSON(http.StatusOK, gin.H{"errCode": constant.OneClickGetPhoneError, "errMsg": err.Error()})
 		return
 	}
 	log.Debug(params.OperationID, "get phone success", response.Data.Phone, response.Data.ResultCode)

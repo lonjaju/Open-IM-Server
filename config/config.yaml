@@ -778,12 +778,19 @@ demo:
     signName:
     verificationCodeTemplateCode:
     enable: false
-  netEaseSMS: #腾讯云短信配置，在腾讯云申请成功后，修改以下选项，enable为true则必须修改
+  netEaseSMS: # 网易短信配置，在网盾申请成功后，修改以下选项，enable为true则必须修改
     secretID: "96cae66f07870b6650a569eab348638b"
     secretKey: "772af8c0409d245c5d83c8b0566f6703"
     businessID: "209c3d08d71d44a6853a3d7ec518d3e6"
     verificationCodeTemplateCode: ""
     enable: true
+
+  netEaseOneClick: # 网易一键登录
+    secretID: "96cae66f07870b6650a569eab348638b"
+    secretKey: "772af8c0409d245c5d83c8b0566f6703"
+    businessID: "3b71a8e87766435b910f3a8ab16b556e"
+    enable: true
+
   superCode: 888888 #超级验证码，建议修改掉，收不到短信验证码时可以用此替代
   needInvitationCode: false
   #  second

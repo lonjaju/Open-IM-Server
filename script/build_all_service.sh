@@ -25,6 +25,7 @@ for ((i = 0; i < ${#service_source_root[*]}; i++)); do
   cd $begin_path
   service_path=${service_source_root[$i]}
   cd $service_path
+  echo "$service_path: " $service_path
   make install
   if [ $? -ne 0 ]; then
         echo -e "${RED_PREFIX}${service_names[$i]} build failed ${COLOR_SUFFIX}\n"

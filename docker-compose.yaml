@@ -32,7 +32,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=openIM
       - MONGO_INITDB_ROOT_PASSWORD=${PASSWORD}
       - MONGO_INITDB_DATABASE=openIM
-      - MONGO_USERNAME=
+      - MONGO_USERNAME=openIM
       - MONGO_PASSWORD=${PASSWORD}
     #
     restart: always

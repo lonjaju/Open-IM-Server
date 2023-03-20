@@ -27,7 +27,7 @@ func main() {
 	if config.Config.Prometheus.Enable {
 		r.GET("/metrics", promePkg.PrometheusHandler())
 	}
-	authRouterGroup := r.Group("/demo")
+	authRouterGroup := r.Group("/demo|auth")
 	{
 		// 发送验证码
 		authRouterGroup.POST("/code", register.SendVerificationCode)
@@ -44,6 +44,41 @@ func main() {
 
 		// 获取用户手机号
 		authRouterGroup.POST("/one_click/get_phone", register.OneClickGetPhone)
+	}
+
+	{
+		// 首页推荐
+		// 进入首页提醒用户开启定位权限，否则不能使用，将显示错误缺省页。
+		// 如果开启了定位，则通过位置信息、推荐方式（平台推荐或附近的位置）查询该地区的用户列表，如果该地区没有用户，则显示缺省页面
+		// 1，查询条件：地址位置、推荐方式（1，平台推荐；2，根据地理位置距离）
+		// 2，返回列表详情字段如下（根据用户会员时长排序，会员级别越高，开通时间越长，越靠前）
+		// todo:
+
+		// 圈子列表
+		// 平台所有用户最新发布的动态消息列表
+		// todo:
+
+		// 我的消息
+		// tab页面，分系统消息和用户聊天消息。消息状态为已读和未读，根据消息发布时间排序。消息列表第一行默认显示系统消息
+		// todo:
+	}
+
+	{
+		// 快捷消息管理
+		// todo
+	}
+
+	{
+		// todo:
+		// 意见反馈
+	}
+
+	{
+		// todo:
+		// 公共接口
+		// 1，用户基本信息
+		// 2，关注用户
+		// 3，上传文件/
 	}
 
 	//demoRouterGroup := r.Group("/auth")

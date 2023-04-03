@@ -1,6 +1,12 @@
 package register
 
 import (
+	"encoding/json"
+	"math/big"
+	"net/http"
+	"strconv"
+	"time"
+
 	api "Open_IM/pkg/base_info"
 	"Open_IM/pkg/common/config"
 	"Open_IM/pkg/common/constant"
@@ -11,11 +17,6 @@ import (
 	"Open_IM/pkg/common/token_verify"
 	pbFriend "Open_IM/pkg/proto/friend"
 	"Open_IM/pkg/utils"
-	"encoding/json"
-	"math/big"
-	"net/http"
-	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -67,6 +68,7 @@ func SetPassword(c *gin.Context) {
 	}
 	openIMRegisterReq := api.UserRegisterReq{}
 	var account string
+	// 优先使用邮箱
 	if params.Email != "" {
 		account = params.Email
 		openIMRegisterReq.Email = params.Email

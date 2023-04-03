@@ -57,7 +57,7 @@ services:
   zookeeper:
     image: wurstmeister/zookeeper
     ports:
-      - 2181:2181
+      - 12181:2181
     container_name: zookeeper
     volumes:
       - /etc/localtime:/etc/localtime
@@ -71,7 +71,7 @@ services:
     container_name: kafka
     restart: always
     ports:
-      - 9092:9092
+      - 19092:9092
     environment:
       TZ: Asia/Shanghai
       KAFKA_BROKER_ID: 0
@@ -87,8 +87,8 @@ services:
   etcd:
     image: quay.io/coreos/etcd
     ports:
-      - 2379:2379
-      - 2380:2380
+      - 12379:2379
+      - 12380:2380
     container_name: etcd
     volumes:
       - /etc/timezone:/etc/timezone

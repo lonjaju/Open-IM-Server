@@ -120,7 +120,7 @@ func main() {
 		groupRouterGroup.POST("/set_group_member_nickname", group.SetGroupMemberNickname)
 		groupRouterGroup.POST("/set_group_member_info", group.SetGroupMemberInfo)
 		groupRouterGroup.POST("/get_group_abstract_info", group.GetGroupAbstractInfo)
-		//groupRouterGroup.POST("/get_group_all_member_list_by_split", group.GetGroupAllMemberListBySplit)
+		//groupRouterGroup.POST("/get_group_all_member_list_by_split", group.GetGroupAllMexmberListBySplit)
 	}
 	superGroupRouterGroup := r.Group("/super_group")
 	{
@@ -131,9 +131,11 @@ func main() {
 	authRouterGroup := r.Group("/auth")
 	{
 		authRouterGroup.POST("/user_register", apiAuth.UserRegister) //1
-		authRouterGroup.POST("/user_token", apiAuth.UserToken)       //1
-		authRouterGroup.POST("/parse_token", apiAuth.ParseToken)     //1
-		authRouterGroup.POST("/force_logout", apiAuth.ForceLogout)   //1
+		// {"secret":"tuoyun","platform":8,"userID":"openIM123456","OperationID":"mjalnt2t721679885838485uuid"}
+		// {"errCode":0,"errMsg":"","data":{"userID":"openIM123456","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVSUQiOiJvcGVuSU0xMjM0NTYiLCJQbGF0Zm9ybSI6IkFQYWQiLCJleHAiOjE2ODc2NjE4MzgsIm5iZiI6MTY3OTg4NTUzOCwiaWF0IjoxNjc5ODg1ODM4fQ.ZP-V5A9ju5M5-t0BKyoosiHOLsySSSUKXwtRTgkaIpI","expiredTime":1687661838}}
+		authRouterGroup.POST("/user_token", apiAuth.UserToken)     //1
+		authRouterGroup.POST("/parse_token", apiAuth.ParseToken)   //1
+		authRouterGroup.POST("/force_logout", apiAuth.ForceLogout) //1
 	}
 	//Third service
 	thirdGroup := r.Group("/third")

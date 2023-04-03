@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -652,7 +653,9 @@ func unmarshalConfig(config interface{}, configName string) {
 	}
 	cfgName := os.Getenv(env)
 	if len(cfgName) != 0 {
-		bytes, err := ioutil.ReadFile(filepath.Join(cfgName, "config", configName))
+		cfgPath := filepath.Join(cfgName, "config", configName)
+		log.Println("cfgPath: ", cfgPath)
+		bytes, err := ioutil.ReadFile(cfgPath)
 		if err != nil {
 			bytes, err = ioutil.ReadFile(filepath.Join(Root, "config", configName))
 			if err != nil {

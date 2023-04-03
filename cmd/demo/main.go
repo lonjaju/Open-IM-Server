@@ -1,6 +1,8 @@
 package main
 
 import (
+	apiAuth "Open_IM/internal/api/auth"
+	apiShortPhrases "Open_IM/internal/api/short_phrases"
 	"Open_IM/pkg/utils"
 	"flag"
 	"fmt"
@@ -30,9 +32,18 @@ func main() {
 		// 手机登录注册
 		// 重置登录密码
 		// 获取验证码
+
+		authRouterGroup := r.Group("/auth")
+		{
+			authRouterGroup.POST("/user_register", apiAuth.UserRegister)
+			authRouterGroup.POST("/user_token", apiAuth.UserToken)
+			authRouterGroup.POST("/parse_token", apiAuth.ParseToken)
+			authRouterGroup.POST("/force_logout", apiAuth.ForceLogout)
+		}
 	}
 
 	// tab1 磁场(首页)
+	magGroup := r.Group("/magnet")
 	{
 		// 附近的人
 		// 我的动态
@@ -42,14 +53,30 @@ func main() {
 		// 快捷用语
 		// 语音聊天
 		//
+
+		// 首页推荐
+		magGroup.POST("/recommend", apiShortPhrases.ShortPhraseAdd)
 	}
+
+	// 快捷用语
+	shortGroup := r.Group("/shortcut_phrases")
+	{
+		shortGroup.POST("/add", apiShortPhrases.ShortPhraseAdd)
+		shortGroup.POST("/modify", apiShortPhrases.ShortPhraseModify)
+		shortGroup.POST("/del", apiShortPhrases.ShortPhraseDel)
+		shortGroup.POST("/list", apiShortPhrases.ShortPhraseList)
+	}
+
 	// tab2 圈子
 	{
 		//
 	}
 	// tab3 消息
+	msgGroup := r.Group("/msg")
 	{
 		// 已读 ; 未读
+		msgGroup.POST("/msg/read", apiShortPhrases.ShortPhraseAdd)
+		msgGroup.POST("/msg/unread", apiShortPhrases.ShortPhraseAdd)
 	}
 	// tab4 我的
 	{

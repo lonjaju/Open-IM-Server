@@ -1,6 +1,13 @@
 package main
 
 import (
+	"flag"
+	"fmt"
+	//_ "github.com/razeencheng/demo-go/swaggo-gin/docs"
+	"io"
+	"os"
+	"strconv"
+
 	_ "Open_IM/cmd/open_im_api/docs"
 	apiAuth "Open_IM/internal/api/auth"
 	clientInit "Open_IM/internal/api/client_init"
@@ -13,17 +20,11 @@ import (
 	"Open_IM/internal/api/organization"
 	apiThird "Open_IM/internal/api/third"
 	"Open_IM/internal/api/user"
+	"Open_IM/internal/demo/register"
 	"Open_IM/pkg/common/config"
 	"Open_IM/pkg/common/log"
 	"Open_IM/pkg/grpc-etcdv3/getcdv3"
 	"Open_IM/pkg/utils"
-	"flag"
-	"fmt"
-
-	//_ "github.com/razeencheng/demo-go/swaggo-gin/docs"
-	"io"
-	"os"
-	"strconv"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -43,9 +44,9 @@ import (
 // @BasePath /
 func main() {
 	log.NewPrivateLog(constant.LogFileName)
-	gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.DebugMode)
 	f, _ := os.Create("../logs/api.log")
-	gin.DefaultWriter = io.MultiWriter(f)
+	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 	//	gin.SetMode(gin.DebugMode)
 	r := gin.New()
 	r.Use(gin.Recovery())
@@ -59,6 +60,7 @@ func main() {
 		r.Use(promePkg.PromeTheusMiddleware)
 		r.GET("/metrics", promePkg.PrometheusHandler())
 	}
+
 	// user routing group, which handles user registration and login services
 	userRouterGroup := r.Group("/user")
 	{
@@ -136,6 +138,13 @@ func main() {
 		authRouterGroup.POST("/user_token", apiAuth.UserToken)     //1
 		authRouterGroup.POST("/parse_token", apiAuth.ParseToken)   //1
 		authRouterGroup.POST("/force_logout", apiAuth.ForceLogout) //1
+
+		authRouterGroup.POST("/code", register.SendVerificationCode)
+		authRouterGroup.POST("/verify", register.Verify)
+		authRouterGroup.POST("/register", register.SetPassword)
+		authRouterGroup.POST("/login", register.Login)
+		authRouterGroup.POST("/reset_password", register.ResetPassword)
+		authRouterGroup.POST("/check_login", register.CheckLoginLimit)
 	}
 	//Third service
 	thirdGroup := r.Group("/third")

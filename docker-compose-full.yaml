@@ -113,6 +113,63 @@ services:
     restart: always
     command: minio server /data --console-address ':9090'
 
+
+  open_im_server:
+#    image: openim/open_im_server:v2.3.8
+#    image: openim/open_im_server:latest
+    image: open-im-srv-long
+    container_name: open_im_server
+    volumes:
+      - ./logs:/Open-IM-Server/logs
+      - ./config/config.yaml:/Open-IM-Server/config/config.yaml
+      - ./config/usualConfig.yaml:/Open-IM-Server/config/usualConfig.yaml
+      - ${DATA_DIR}/db/sdk:/Open-IM-Server/db/sdk
+      - ./script:/Open-IM-Server/script
+      - ./cmd:/Open-IM-Server/cmd
+      - ./bin2:/Open-IM-Server/bin2
+    restart: always
+    depends_on:
+      - kafka
+      - mysql
+      - mongodb
+      - redis
+      - etcd
+      - minio
+    #    network_mode: "host"
+    logging:
+      driver: json-file
+      options:
+        max-size: "1g"
+        max-file: "2"
+    ports:
+      - 10001:10001
+      - 10002:10002
+      - 10003:10003
+      - 10004:10004
+
+  #  open_im_enterprise:
+  #    image: openim/open_im_enterprise:v1.0.3
+  #    container_name: open_im_enterprise
+  #    volumes:
+  #      - ./logs:/Open-IM-Enterprise/logs
+  #      - ./docker-compose_cfg/config.yaml:/Open-IM-Enterprise/config/config.yaml
+  #    restart: always
+  #    depends_on:
+  #      - mysql
+  #      - mongodb
+  #      - redis
+  #      - etcd
+  #      - minio
+  #      - open_im_server
+  #    network_mode: "host"
+  #    logging:
+  #      driver: json-file
+  #      options:
+  #        max-size: "1g"
+  #        max-file: "2"
+  #    environment:
+  #      CONFIG_NAME: "/Open-IM-Enterprise"
+
   prometheus:
     image: prom/prometheus
     volumes:
